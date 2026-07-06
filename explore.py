@@ -107,6 +107,158 @@ accident_dtypes = {
     'FATALS':       'int8',
 }
 
+person_dtypes = {
+    # Identifiers
+    'STATE':            'int8',
+    'STATENAME':        'category',
+    'ST_CASE':          'int32',
+    'VEH_NO':           'int16',
+    'PER_NO':           'int8',
+    'VE_FORMS':         'int8',
+    'COUNTY':           'int16',
+
+    # Date / time
+    'MONTH':            'int8',
+    'MONTHNAME':        'category',
+    'DAY':              'int8',
+    'DAYNAME':          'category',
+    'HOUR':             'int8',
+    'HOURNAME':         'category',
+    'MINUTE':           'int8',
+    'MINUTENAME':       'category',
+
+    # Crash characteristics
+    'HARM_EV':          'int8',
+    'HARM_EVNAME':      'category',
+    'MAN_COLL':         'int8',
+    'MAN_COLLNAME':     'category',
+    'SCH_BUS':          'int8',
+    'SCH_BUSNAME':      'category',
+    'RUR_URB':          'int8',
+    'RUR_URBNAME':      'category',
+    'FUNC_SYS':         'int8',
+    'FUNC_SYSNAME':     'category',
+
+    # Vehicle info
+    'MOD_YEAR':         'int16',
+    'MOD_YEARNAME':     'category',
+    'VPICMAKE':         'int16',
+    'VPICMAKENAME':     'category',
+    'VPICMODEL':        'int16',
+    'VPICMODELNAME':    'category',
+    'VPICBODYCLASS':    'int16',
+    'VPICBODYCLASSNAME':'category',
+    'MAKE':             'int16',
+    'MAKENAME':         'category',
+    'BODY_TYP':         'int16',
+    'BODY_TYPNAME':     'category',
+    'ICFINALBODY':      'int16',
+    'ICFINALBODYNAME':  'category',
+    'GVWR_FROM':        'int8',
+    'GVWR_FROMNAME':    'category',
+    'GVWR_TO':          'int8',
+    'GVWR_TONAME':      'category',
+    'TOW_VEH':          'int8',
+    'TOW_VEHNAME':      'category',
+    'SPEC_USE':         'int8',
+    'SPEC_USENAME':     'category',
+    'EMER_USE':         'int8',
+    'EMER_USENAME':     'category',
+    'ROLLOVER':         'int8',
+    'ROLLOVERNAME':     'category',
+    'IMPACT1':          'int8',
+    'IMPACT1NAME':      'category',
+    'FIRE_EXP':         'int8',
+    'FIRE_EXPNAME':     'category',
+    'MAK_MOD':          'int16',
+    'MAK_MODNAME':      'category',
+
+    # Person info
+    'AGE':              'int16',
+    'AGENAME':          'category',
+    'SEX':              'int8',
+    'SEXNAME':          'category',
+    'PER_TYP':          'int8',
+    'PER_TYPNAME':      'category',
+
+    # Target variable
+    'INJ_SEV':          'int8',
+    'INJ_SEVNAME':      'category',
+
+    # Safety equipment
+    'SEAT_POS':         'int8',
+    'SEAT_POSNAME':     'category',
+    'REST_USE':         'int8',
+    'REST_USENAME':     'category',
+    'REST_MIS':         'int8',
+    'REST_MISNAME':     'category',
+    'HELM_USE':         'int8',
+    'HELM_USENAME':     'category',
+    'HELM_MIS':         'int8',
+    'HELM_MISNAME':     'category',
+    'AIR_BAG':          'int8',
+    'AIR_BAGNAME':      'category',
+
+    # Ejection
+    'EJECTION':         'int8',
+    'EJECTIONNAME':     'category',
+    'EJ_PATH':          'int8',
+    'EJ_PATHNAME':      'category',
+    'EXTRICAT':         'int8',
+    'EXTRICATNAME':     'category',
+
+    # Alcohol / drugs
+    'DRINKING':         'int8',
+    'DRINKINGNAME':     'category',
+    'ALC_STATUS':       'int8',
+    'ALC_STATUSNAME':   'category',
+    'ATST_TYP':         'int8',
+    'ATST_TYPNAME':     'category',
+    'ALC_RES':          'float32',
+    'ALC_RESNAME':      'category',
+    'DRUGS':            'int8',
+    'DRUGSNAME':        'category',
+    'DSTATUS':          'int8',
+    'DSTATUSNAME':      'category',
+
+    # Hospital / death info (post-crash, drop before modeling)
+    'HOSPITAL':         'int8',
+    'HOSPITALNAME':     'category',
+    'DOA':              'int8',
+    'DOANAME':          'category',
+    'DEATH_MO':         'int8',
+    'DEATH_MONAME':     'category',
+    'DEATH_DA':         'int8',
+    'DEATH_DANAME':     'category',
+    'DEATH_YR':         'int16',
+    'DEATH_YRNAME':     'category',
+    'DEATH_TM':         'int16',
+    'DEATH_TMNAME':     'category',
+    'DEATH_HR':         'int8',
+    'DEATH_HRNAME':     'category',
+    'DEATH_MN':         'int8',
+    'DEATH_MNNAME':     'category',
+    'LAG_HRS':          'int16',
+    'LAG_HRSNAME':      'category',
+    'LAG_MINS':         'int8',
+    'LAG_MINSNAME':     'category',
+
+    # Miscellaneous
+    'STR_VEH':          'int8',
+    'DEVTYPE':          'int8',
+    'DEVTYPENAME':      'category',
+    'DEVMOTOR':         'int8',
+    'DEVMOTORNAME':     'category',
+    'LOCATION':         'int8',
+    'LOCATIONNAME':     'category',
+    'WORK_INJ':         'int8',
+    'WORK_INJNAME':     'category',
+    'HISPANIC':         'int8',
+    'HISPANICNAME':     'category',
+}
+
 accident = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/accident.csv", dtype=accident_dtypes)
+person = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/person.csv", dtype=person_dtypes)
 # %%
 print(accident.head())
+print(person.head())
