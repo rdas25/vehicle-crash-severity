@@ -257,8 +257,9 @@ person_dtypes = {
     'HISPANICNAME':     'category',
 }
 
-accident = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/accident.csv", dtype=accident_dtypes)
-person = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/person.csv", dtype=person_dtypes)
+accident = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/accident.csv")
+person = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/person.csv")
 # %%
 print(accident.head())
 print(person.head())
+# %%
