@@ -263,3 +263,57 @@ person = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/person.
 print(accident.head())
 print(person.head())
 # %%
+print("INJ_SEV distribution (raw):")
+print(person[['INJ_SEV', 'INJ_SEVNAME']].value_counts().sort_index())
+# %%
+df = person.merge(
+    accident[[
+        'ST_CASE', 'YEAR', 'DAY_WEEK', 'WEATHER', 'WEATHERNAME',
+        'LGT_COND', 'LGT_CONDNAME', 'RD_OWNER', 'RD_OWNERNAME',
+        'NHS', 'NHSNAME', 'RELJCT2', 'RELJCT2NAME', 'REL_ROAD',
+        'REL_ROADNAME', 'WRK_ZONE', 'WRK_ZONENAME', 'LATITUDE',
+        'LONGITUD', 'FATALS', 'PERSONS', 'VE_TOTAL', 'PEDS',
+        'TYP_INT', 'TYP_INTNAME', 'SP_JUR', 'SP_JURNAME'
+    ]],
+    on='ST_CASE',
+    how='left'
+)
+ 
+print(f"Shape: {df.shape}")
+# %%
+df = df[df['INJ_SEV'].isin([0, 1, 2, 3, 4])].copy()
+print(f"Number of rows after filtering: {len(df):,}")
+# %%
+leakage_cols = [
+    'DEATH_MO', 'DEATH_MONAME', 'DEATH_DA', 'DEATH_DANAME',
+    'DEATH_YR', 'DEATH_YRNAME', 'DEATH_TM', 'DEATH_TMNAME',
+    'DEATH_HR', 'DEATH_HRNAME', 'DEATH_MN', 'DEATH_MNNAME',
+    'LAG_HRS', 'LAG_HRSNAME', 'LAG_MINS', 'LAG_MINSNAME',
+    'HOSPITAL', 'HOSPITALNAME', 'DOA', 'DOANAME',
+    'FATALS',       # crash outcome
+    'INJ_SEVNAME',  # readable label for target — drop, keep INJ_SEV
+    'AGENAME',      # redundant with AGE
+    'STATENAME',    # redundant with STATE
+    'TWAY_ID' if 'TWAY_ID' in df.columns else None,
+    'TWAY_ID2' if 'TWAY_ID2' in df.columns else None,
+]
+
+leakage_cols = [c for c in leakage_cols if c is not None and c in df.columns]
+df = df.drop(columns=leakage_cols)
+print(f"Number of columns after filtering: {df.shape[1]}")
+# %%
+nulls = df.isnull().sum()
+print("Columns with nulls:")
+print(nulls[nulls > 0].sort_values(ascending=False))
+# %%
+print("Final INJ_SEV distribution:")
+counts = df['INJ_SEV'].value_counts().sort_index()
+labels = {0: 'No Injury', 1: 'Possible', 2: 'Minor', 3: 'Serious', 4: 'Fatal'}
+for code, count in counts.items():
+    pct = count / len(df) * 100
+    print(f"{code} - {labels[code]:<12} {count:>7,} ({pct:.1f}%)")
+
+# %%
+df.head()
+df.describe()
+# %%
