@@ -259,12 +259,15 @@ person_dtypes = {
 
 accident = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/accident.csv")
 person = pd.read_csv("/Users/rohandasanoor/Downloads/FARS2024NationalCSV/person.csv")
+
 # %%
 print(accident.head())
 print(person.head())
+
 # %%
 print("INJ_SEV distribution (raw):")
 print(person[['INJ_SEV', 'INJ_SEVNAME']].value_counts().sort_index())
+
 # %%
 df = person.merge(
     accident[[
@@ -280,9 +283,11 @@ df = person.merge(
 )
  
 print(f"Shape: {df.shape}")
+
 # %%
 df = df[df['INJ_SEV'].isin([0, 1, 2, 3, 4])].copy()
 print(f"Number of rows after filtering: {len(df):,}")
+
 # %%
 leakage_cols = [
     'DEATH_MO', 'DEATH_MONAME', 'DEATH_DA', 'DEATH_DANAME',
@@ -301,10 +306,12 @@ leakage_cols = [
 leakage_cols = [c for c in leakage_cols if c is not None and c in df.columns]
 df = df.drop(columns=leakage_cols)
 print(f"Number of columns after filtering: {df.shape[1]}")
+
 # %%
 nulls = df.isnull().sum()
 print("Columns with nulls:")
 print(nulls[nulls > 0].sort_values(ascending=False))
+
 # %%
 print("Final INJ_SEV distribution:")
 counts = df['INJ_SEV'].value_counts().sort_index()
