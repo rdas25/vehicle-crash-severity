@@ -13,9 +13,7 @@ risk scoring could inform insurance premium pricing.
 
 ## Why I built it
 
-I got interested in the intersection of transportation safety and data science
-through [pedestrian/transportation safety work — link your Youth Voices for a Sober
-Future or pedestrian safety app project here if you want to cross-reference it].
+I got interested in the intersection of transportation safety and data science.
 This project was a chance to work with real federal crash data and see what
 actually predicts severity outcomes, rather than just building a toy dataset model.
 
@@ -29,13 +27,11 @@ actually predicts severity outcomes, rather than just building a toy dataset mod
 - Merging FARS's multiple linked tables (crash, vehicle, person-level records) without
   losing or duplicating rows
 - Handling inconsistent dtypes across years of NHTSA data
-- Working around GitHub's file size limits for the raw dataset (solution: [describe
-  briefly — e.g. "stored a sampled/processed subset and documented the full download
-  source instead"])
+- Working around GitHub's file size limits for the raw dataset
 
 ## Data source
 
-[Link to NHTSA/FARS dataset]
+https://www.nhtsa.gov/file-downloads?p=nhtsa/downloads/FARS/2024/National/
 
 ## Running it
 
