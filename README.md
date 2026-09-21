@@ -1,8 +1,7 @@
 # Crash Injury Severity Predictor
 
 Predicts the severity of injuries in vehicle crashes using historical NHTSA/FARS
-(Fatality Analysis Reporting System) data, with an eye toward how this kind of
-risk scoring could inform insurance premium pricing.
+(Fatality Analysis Reporting System) data.
 
 ## What it does
 
