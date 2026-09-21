@@ -8,6 +8,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.metrics import (
     classification_report, confusion_matrix, f1_score
 )
+from sklearn.metrics import roc_auc_score
 import joblib
 
 # %% --- Cell 2: Load and merge (same as explore.py) ---
@@ -121,6 +122,17 @@ print(classification_report(
     y_test, y_pred,
     target_names=['No Injury','Possible','Minor','Serious','Fatal']
 ))
+
+proba = rf.predict_proba(X_test)
+
+# One-vs-rest, macro-averaged (each class weighted equally)
+auc_macro = roc_auc_score(y_test, proba, multi_class='ovr', average='macro')
+
+# One-vs-rest, weighted by class support
+auc_weighted = roc_auc_score(y_test, proba, multi_class='ovr', average='weighted')
+
+print(f"Macro OvR AUC:    {auc_macro:.4f}")
+print(f"Weighted OvR AUC: {auc_weighted:.4f}")
 
 # %% --- Cell 9: Confusion matrix ---
 cm = pd.DataFrame(
